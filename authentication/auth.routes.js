@@ -11,12 +11,12 @@ module.exports = app => {
       res.redirect('./dashboard');
   });
 
-  app.get('/api/logout', (req, res) => {
+  app.get('/api/auth/logout', (req, res) => {
     req.logout();
     res.redirect('/');
   });
 
-  app.get('/api/current_user', (req, res) => {
-    res.send('Logged in as ' + req.user.name);
+  app.get('/api/auth/current_user', (req, res) => {
+    res.send(req.user);
   });
 };
