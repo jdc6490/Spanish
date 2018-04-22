@@ -4,18 +4,30 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';  //is a react component that connects react to redux
 import { createStore, applyMiddleware } from 'redux';
+import { BrowserRouter} from 'react-router-dom';
+import thunk from 'redux-thunk';
 
-import App from './components/App';
-import reducers from './reducers';
+import App from './App';
+import reducers from './store/reducers/index';
 
 import axios from 'axios';
 window.axios = axios;
-
-const store = createStore(reducers, {}, applyMiddleware());
-
+axios.defaults.withCredentials = true;
 
 
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.querySelector('#root'));
+
+
+const store = createStore(reducers, {}, applyMiddleware(thunk));
+
+const app = (
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
+);
+
+ReactDOM.render(app, document.querySelector('#root'));
 
 
 

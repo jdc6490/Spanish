@@ -22,6 +22,15 @@ mongoose.connect(keys.mongoURI);
 
 const app = express();
 
+app.use((req, res, next) => {
+    res.append('Access-Control-Allow-Origin', ['http://localhost:3000']);
+    res.append('Access-Control-Allow-Credentials', 'true');
+    res.append('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
+    res.append('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+    next();
+});
+
+
 app.use(bodyParser.json());
 app.use(
   cookieSession({
@@ -33,22 +42,9 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 require('./authentication/auth.routes')(app);
 require('./contentsystem/content.routes')(app);
 require('./newspanel/meetup-news/meetup.routes')(app);
 
 app.listen(5000);
-
-
-
-/*
-for (j = 0; j < 100; j++) {
-  const valuesArray = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-  const helperArray = [];
-  for (i = 0; i < 11; i++) {
-	   const ranNum =  Math.floor(Math.random() * 36);
-     helperArray.push(valuesArray[ranNum]);
-  };
-  const code = helperArray.join("");
-  console.log(code);
-}

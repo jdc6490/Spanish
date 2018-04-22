@@ -8,15 +8,16 @@ module.exports = app => {
   app.get('/auth/meetup/callback',
     passport.authenticate('meetup', { failureRedirect: '/login' }),
     function(req, res) {
-      res.redirect('./dashboard');
+      res.redirect('/');
   });
 
-  app.get('/api/auth/logout', (req, res) => {
+  app.get('/api/logout', (req, res) => {
     req.logout();
     res.redirect('/');
   });
 
-  app.get('/api/auth/current_user', (req, res) => {
+  app.get('/api/current_user', (req, res) => {
     res.send(req.user);
+
   });
 };
