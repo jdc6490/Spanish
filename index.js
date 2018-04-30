@@ -45,6 +45,6 @@ app.use(passport.session());
 
 require('./authentication/auth.routes')(app);
 require('./contentsystem/content.routes')(app);
-require('./newspanel/meetup-news/meetup.routes')(app);
+require('./newspanel/meetupnews/meetup.routes')(app);
 
 app.listen(5000);

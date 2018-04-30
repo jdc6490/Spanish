@@ -5,16 +5,23 @@ const Comment = mongoose.model('Comment');
 
 module.exports = {
 
+  async fetchContents() {
+    const Contents = await Content.find()
+    return Contents;
+  },
+
+
   async saveNewContent(data) {
-    const contentData = {
-      contentId: data.contentId,
-      type: data.type,
-      spanish: data.spanish,
-      english: data.english,
-      example: data.example,
-      country: data.country
+
+    console.log('this is the data')
+    console.log(data)
+    console.log('above this point')
+    console.log(data.userToken)
+    const Data = {
+      content: data.contentData,
+      userToken: data.userToken,
     };
-    await new Content(contentData).save();
+    await new Content(Data).save();
   },
 
 

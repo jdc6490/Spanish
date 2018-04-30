@@ -7,8 +7,11 @@ import ContentContainer from './Content/ContentContainer'
 const style = {
    marginTop: '72px',
    border: '1px solid #eee',
+   maxWidth: '100%',
+   height: '100%',
    padding: '10px',
    display: 'flex',
+
    zIndex: '100'
 }
 

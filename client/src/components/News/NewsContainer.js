@@ -6,6 +6,7 @@ import Events from './Photos/Photos';
 const style = {
    marginTop: '2px',
    width: '30%',
+   left: '70%',
    border: '1px solid #eee',
    alignItems: 'center',
    zIndex: '100'
@@ -15,8 +16,8 @@ const style = {
 const NewsContainer = (props) => (
 
     <div style={style}>
-      <Events />
       <Photos />
+      <Events />
     </div>
 
 );
