@@ -2,10 +2,9 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   _id: null,
-  token: null,
+  meetupId: null,
   name: null,
-  meetupId: null
-
+  token: null
 }
 
 const reducer = (state = initialState, action) => {

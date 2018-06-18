@@ -6,29 +6,51 @@ const Comment = mongoose.model('Comment');
 module.exports = {
 
   async fetchContents() {
-    const Contents = await Content.find()
-    return Contents;
+    try {
+      const contents = await Content.find()
+      return contents;
+    } catch (error) {
+      console.log(error);
+    }
   },
 
+  async fetchComments(id) {
+    try {
+      const comments = await Comment.find( { contentId: id } );
+      return comments;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  async fetchContentById(id) {
+    try {
+      const contentById = await Content.findOne( { _id: mongoose.Types.ObjectId(id) } );
+      return contentById;
+    } catch (error) {
+      console.log(error);
+    }
+  },
 
   async saveNewContent(data) {
-
-    console.log('this is the data')
-    console.log(data)
-    console.log('above this point')
-    console.log(data.userToken)
     const Data = {
       content: data.contentData,
-      userToken: data.userToken,
+      meetupId: data.meetupId,
+      name: data.name,
+      timeStamp: Date.now()
     };
-    await new Content(Data).save();
+    try {
+      const content = await new Content(Data).save()
+      console.log(content);
+      return content;
+    } catch (error) {
+      console.log(error);
+    }
   },
-
 
   async deleteOldContent(data) {
     const deleteContent = await Content.find({contentId: data.contentId}).deleteOne()
   },
-
 
   async editOldContent(data) {
     const editContent = await Content.find({contentId: data.contentId}).updateOne({
@@ -41,25 +63,34 @@ module.exports = {
     })
   },
 
-
   async saveNewComment(data) {
-    const commentData = {
-      commentId: data.commentId,
+    const Data = {
       contentId: data.contentId,
-      //userId: req.user,
-      body: data.body
+      body: data.body,
+      name: data.name,
+      meetupId: data.meetupId,
+      timeStamp: Date.now()
     };
-    await new Comment(commentData).save()
+    try {
+      const comment = await new Comment(Data).save()
+      return comment;
+    } catch (error) {
+      console.log(error);
+    }
   },
 
-
   async saveNewRating(data) {
+    const existingRating = await Rating.findOne({ contentId: data.contentId, postedby: data.postedBy})
+    if (existingRating) {
+      const updateRating = await Rating.updateOne
+    }
     const ratingData = {
-      rating: data.rating,
+      //accuracy: data
       //userId: req.user,
-      contentRef: data.contentId
+      //difficulty: data
     };
     await new Rating(ratingtData).save()
   }
+
 
 };

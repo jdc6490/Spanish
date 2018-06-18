@@ -14,12 +14,12 @@ class ContentAdder extends Component {
           elementType: 'select',
           elementConfig: {
              options: [
-               {value: 'word', displayValue: 'Word'},
-               {value: 'phrase', displayValue: 'Phrase'},
-               {value: 'slang', displayValue: 'Slang'}
+               {value: 'neutral', displayValue: 'Neutral'},
+               {value: 'slang', displayValue: 'Slang'},
+               {value: 'grammar', displayValue: 'Grammar'}
              ]
            },
-           value: 'Word',
+           value: 'neutral',
            validation: {},
            valid: true
       },
@@ -76,14 +76,12 @@ class ContentAdder extends Component {
 
     const content = {
       contentData: formData,
-      userToken: this.props.token
+      name: this.props.name,
+      meetupId: this.props.meetupId
     }
-
-    console.log(content);
 
     this.props.onSumbitContent(content)
   }
-
 
   inputChangedHandler = (event, inputIdentifier) => {
 
@@ -100,8 +98,6 @@ class ContentAdder extends Component {
     updatedFormElement.touched = true;
     updatedContentForm[inputIdentifier] = updatedFormElement;
 
-    console.log(updatedContentForm)
-
     let formIsValid = true;
     for (let inputIdentifier in updatedContentForm) {
         formIsValid = updatedContentForm[inputIdentifier].valid && formIsValid;
@@ -109,7 +105,6 @@ class ContentAdder extends Component {
 
     this.setState({contentForm: updatedContentForm, formIsValid: formIsValid});
   }
-
 
   render () {
     const formElementsArray = [];
@@ -132,8 +127,9 @@ class ContentAdder extends Component {
             touched={formElement.config.touched}
             changed={(event) => this.inputChangedHandler(event, formElement.id)} />
         ))}
-         <Button disabled={!this.state.formIsValid}>Add</Button>
+         <Button disabled={!this.state.formIsValid} clicked={this.props.contentSubmitted} >Submit</Button>
       </form>
+
     )
 
     return (
@@ -147,8 +143,8 @@ class ContentAdder extends Component {
 
 const mapStateToProps = state => {
     return {
-        token: state.auth.token,
-
+        meetupId: state.auth.meetupId,
+        name: state.auth.name
     }
 };
 

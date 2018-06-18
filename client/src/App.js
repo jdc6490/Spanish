@@ -1,15 +1,31 @@
 //This will be more about react (the rendering layer of the application - react router)
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { Route, withRouter } from 'react-router-dom';
+import { Route, withRouter, Switch } from 'react-router-dom';
 
 import * as actions from './store/actions/index';
-import Layout from './hoc/layout'
+import Layout from './hoc/layout';
 
+import Dashboard from './components/Dashboard';
+import Landing from './components/Landing/Landing';
+import Profile from './components/Profile/Profile';
+import Feeds from './components/Newsfeed/Feeds';
 
+const style = {
+  position: 'absolute',
+  left: '0',
+  top: '0',
+  margin: '0 auto',
 
-import Dashboard from './components/Dashboard'
-import Landing from './components/Landing/Landing'
+  textAlign: 'left'
+
+}
+
+const pageStyle = {
+
+  maxWidth: '1300px',
+  margin: 'auto'
+}
 
 class App extends Component {
   componentDidMount () {
@@ -17,38 +33,35 @@ class App extends Component {
   }
 
   render () {
-
     let routes = (
-      <Route path="/" exact component={Landing} />
+      <Route path="/" component={Landing} />
     );
-
     if ( this.props.isAuthenticated ) {
       routes = (
-        <Route path="/" exact component={Dashboard} />
+
+        <Switch>
+          <Route path="/profile/:id" exact component={Profile} />
+          <Route path="/newsfeed" component={Feeds} />
+          <Route path="/" component={Dashboard} />
+        </Switch>
 
       );
     }
 
-    
-    console.log("isAuthenticated" + this.props.isAuthenticated);
-    console.log("Username" + this.props.userName);
-
     return (
-      <div>
+      <div >
         <Layout />
-        {routes}
-
+        <div style={pageStyle}>
+          {routes}
+        </div>
       </div>
     );
   }
 }
 
-
 const mapStateToProps = state => {
-  console.log(state.auth.token);
   return {
     isAuthenticated: state.auth.token != null,
-    userName: state.auth.name
   };
 };
 

@@ -15,16 +15,24 @@ window.axios = axios;
 axios.defaults.withCredentials = true;
 
 
+const style = {
+  
+  margin: '0 auto',
+  maxWidth: '2400px',
+  textAlign: 'left'
 
+}
 
 const store = createStore(reducers, {}, applyMiddleware(thunk));
 
 const app = (
+  <div style={style}>
   <Provider store={store}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
   </Provider>
+  </div>
 );
 
 ReactDOM.render(app, document.querySelector('#root'));

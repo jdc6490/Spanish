@@ -11,11 +11,10 @@ require('./authentication/auth.config.passport');
 require('./contentsystem/content.model');
 require('./contentsystem/comment.model');
 require('./contentsystem/rating.model');
-require('./newspanel/newsfeed/feed.model');
+require('./newsfeed/newsfeed.model');
 
 require('./contentsystem/content.service');
-require('./newspanel/newsfeed/newsfeed.service');
-
+require('./newsfeed/newsfeed.service');
 
 mongoose.Promise = global.Promise;
 mongoose.connect(keys.mongoURI);
@@ -29,7 +28,6 @@ app.use((req, res, next) => {
     res.append('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
     next();
 });
-
 
 app.use(bodyParser.json());
 app.use(
@@ -45,6 +43,8 @@ app.use(passport.session());
 
 require('./authentication/auth.routes')(app);
 require('./contentsystem/content.routes')(app);
-require('./newspanel/meetupnews/meetup.routes')(app);
+require('./meetuppanel/meetup.routes')(app);
+require('./profile/profile.routes')(app);
+require('./newsfeed/newsfeed.routes')(app);
 
 app.listen(5000);

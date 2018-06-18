@@ -1,24 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Logo from '../Logo/Logo';
+import Title from '../Title/Title';
+import Notifications from '../Notifications/Notifications';
+import ContentControls from '../../../components/Content/ContentControls';
 
 const style = {
   height: '56px',
   width: '100%',
+  backgroundColor: '#703B09',
   top: '0',
   left: '0',
   zIndex: '100',
   position: 'fixed',
-  color: 'white',
-  backgroundColor: '#703B09',
+  boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)',
+};
+
+const textStyle = {
+  width: '1105px',
   justifyContent: 'space-between',
   alignItems: 'center',
   display: 'flex',
   padding: '0 20px',
-  boxSizing: 'border-box'
-
-};
+  boxSizing: 'border-box',
+  margin: 'auto'
+}
 
 class Toolbar extends Component {
   render() {
@@ -33,15 +41,18 @@ class Toolbar extends Component {
         <div>
           <a href="/api/logout">Logout</a>
           <br />
-          {this.props.userName}
+          <Link to={'/profile/' + this.props.meetupId}>{this.props.name}</Link>
         </div>
       )
     }
     return (
       <div style={style}>
+        <div style={textStyle}>
         <Logo />
-        <h2>Minneapolis Spanish</h2>
+        <Title />
+        <Notifications />
         {auth}
+        </div>
       </div>
     )
   }
@@ -51,7 +62,8 @@ class Toolbar extends Component {
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.auth.token != null,
-    userName: state.auth.name
+    name: state.auth.name,
+    meetupId: state.auth.meetupId
   };
 };
 

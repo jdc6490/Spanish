@@ -12,7 +12,7 @@ module.exports = {
     samplePhotos = samplePhotos.filter(photo => { return photo != undefined })  //removing undefined objects in the array (deleted previously)
 
     const photos = [];
-    for (i = 0; i < 4; i++) {       //randomly selecting 4 photos
+    for (i = 0; i < 9; i++) {       //randomly selecting 9 photos
       const randomNum = Math.floor(Math.random() * samplePhotos.length);
       photos.push(samplePhotos[randomNum]);
       delete samplePhotos[randomNum];
@@ -23,14 +23,18 @@ module.exports = {
 
   organizeEvents(data) {
     const eventsArray = data.map(data => ({
+      id: data.id,
       name: data.name,
       date: data.local_date,
       time: data.local_time,
-      rsvp: data.yes_rsvp_count
+      location: data.venue,
+      rsvp: data.yes_rsvp_count,
+      link: data.link
+
     }));
 
     const events = []
-    for (i = 0; i < 8; i++) {     //filtering events to upcoming 8
+    for (i = 0; i < 4; i++) {     //filtering events to upcoming 8
       events.push(eventsArray[i])
     };
     return events;

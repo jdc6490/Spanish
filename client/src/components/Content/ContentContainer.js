@@ -1,23 +1,26 @@
 import React from 'react';
 
-import ContentAdder from './ContentAdder'
+import ContentAdder from './ContentAdder';
 import Contents from './Contents';
+import ContentViewer from './ContentViewer';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
 const style = {
-   marginTop: '2px',
-   border: '1px solid #eee',
-   width: '70%',
-   zIndex: '100',
-   boxSizing: 'border-box'
+   position: 'relative',
+   marginTop: '72px',
+
 }
 
 const ContentContainer = () => {
   return (
     <div style={style}>
-      <ContentAdder />
-      <Contents />
+      <Switch>
+        <Route path={'/'} exact component={Contents} />
+        <Route path={'/content/:id'} exact component={ContentViewer} />
+      </Switch>
+
     </div>
   );
 }
 
-export default ContentContainer;
+export default withRouter( ContentContainer );

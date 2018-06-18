@@ -1,26 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import Photos from './Events/Events';
 import Events from './Photos/Photos';
 
 const style = {
-   marginTop: '2px',
-   width: '30%',
-   left: '70%',
-   border: '1px solid #eee',
-   alignItems: 'center',
-   zIndex: '100'
+   position: 'absolute',
+   width: '330px',
+   top: '0',
+   left: '780px',
+   marginRight: '5px'
+
+
+
+
+
 }
 
 
-const NewsContainer = (props) => (
-
-    <div style={style}>
-      <Photos />
-      <Events />
-    </div>
-
-);
-
+class NewsContainer extends Component {
+  render() {
+    return (
+      <div style={style}>
+        <Photos/>
+        <Events/>
+      </div>
+    )
+  }
+}
 
 export default NewsContainer;

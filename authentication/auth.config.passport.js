@@ -16,22 +16,12 @@ passport.deserializeUser((id, done) => {
   });
 });
 
-
-/*
-async function userDeserializeCallback(id, done) {
-  const user = await authService.findUserById(id);
-  done(null, user);
-}
-
-passport.deserializeUser(userDeserializeCallback);
-*/
-
 const meetupData = {
       consumerKey: keys.meetupKey,
       consumerSecret: keys.meetupSecret,
       callbackURL: '/auth/meetup/callback',
       proxy: true
-  };
+};
 
 async function meetupVerifyCallback(token, tokenSecret, profile, done) {
   const user = await authService.findOrCreateUser(profile, token, tokenSecret);

@@ -1,3 +1,8 @@
+export const formatDate = (dateProp) => {
+  const date = new Date(dateProp).toLocaleString('en-US', {month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit'});
+  return date;
+}
+
 export const checkValidity = ( value, rules ) => {
     let isValid = true;
     if ( !rules ) {
